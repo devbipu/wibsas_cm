@@ -1,0 +1,65 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+
+/******************************************
+-----------------mycss---------------------
+******************************************/
+
+
+//Default rest
+fieldset{
+    border: 1px solid;
+    padding: 20px;
+}
+legend {
+    float: inherit;
+    width: initial;
+    padding: 0px;
+    margin-bottom: 0;
+    line-height: 0;
+}
+
+
+
+#app{
+    main{
+        #sidebar{
+            .sidebarinner {
+                position: fixed;
+                height: 100%;
+                background: #ddd;
+                width: 200px;
+                padding: 20px;
+                h3{
+                    font-weight: 600;
+                    margin-bottom: 22px;
+                }
+                nav{
+                    a{
+                        font-size: 18px;
+                        font-weight: 400;
+                        padding: 4px 10px;
+                        background: #F8FAFC;
+                        border-radius: 5px;
+                        padding-left: 16px;
+                    }
+                }
+            }
+        }
+        .content_wrapper{
+            #addClientModel{
+                fieldset{
+                    padding: 40px 20px;
+                }
+            }
+        }
+    }
+}
