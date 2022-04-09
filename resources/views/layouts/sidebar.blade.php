@@ -6,7 +6,7 @@
             <nav class="nav flex-column">
                 <ul class="nav">
                     <li class="nav-item w-100">
-                        <a class="nav-link active" aria-current="page" href="#">Clients</a>
+                        <a class="nav-link active" aria-current="page" href="{{url('/home/clients')}}">Clients</a>
                     </li>
                 </ul>
             </nav>

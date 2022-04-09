@@ -6,8 +6,7 @@
     <div class="row">
         @include('layouts.sidebar')
         <div class="col-10 pt-5 content_wrapper">
-            <h1>This is Dashboard</h1>
-            {{-- <div class="container-fluid">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <!-- Button trigger modal -->
@@ -31,23 +30,23 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <label for="client_name" class="form-label">Client Name</label>
-                                                        <input type="text" class="form-control" id="client_name" name="client_name">
+                                                        <input type="text" class="form-control" id="client_name" name="client_name" required>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="contact_name" class="form-label">Contact Name</label>
-                                                        <input type="text" class="form-control" id="contact_name" name="contact_name">
+                                                        <input type="text" class="form-control" id="contact_name" name="contact_name" required>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="contact_number" class="form-label">Contact Number</label>
-                                                        <input type="number" class="form-control" id="contact_number" name="contact_number">
+                                                        <input type="number" class="form-control" id="contact_number" name="contact_number" required>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="alter_contact" class="form-label">Alternative Number</label>
-                                                        <input type="text" class="form-control" id="alter_contact" name="alter_contact">
+                                                        <input type="text" class="form-control" id="alter_contact" name="alter_contact" required>
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Address</label>
-                                                        <input type="text" class="form-control" id="address" name="address">
+                                                        <input type="text" class="form-control" id="client_address" name="client_address" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -55,7 +54,6 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>    
                                             <button type="submit" class="btn btn-primary" id="addClientBtn">Save changes</button>
-                                            <a href='#' id="offit">Close the modal</a>
                                         </div>
                                     </div>
                                 </form>
@@ -64,7 +62,7 @@
                     </div>
                 </div>
                     <!-- Modal -->
-                    <div class="modal fade" id="addClientModel" tabindex="-1" aria-labelledby="addClientModelLabel"
+                    {{-- <div class="modal fade" id="addClientModel" tabindex="-1" aria-labelledby="addClientModelLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <form>
@@ -207,17 +205,26 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
-            </div> --}}
+                    </div> --}}
+
+                <div class="allclients mt-4">
+                    <table class="table table-striped" id="clientsTable">
+                        <thead>
+                            <tr>
+                                <th>Sl. No</th>
+                                <th>Client Name</th>
+                                <th>Contact Name</th>
+                                <th>Contact Number</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@endsection
-
-
-
-@section('site-js')
-    <script>
-        
-    </script>
 @endsection
