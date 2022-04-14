@@ -8,3 +8,21 @@
 nav ul.nav li {
     margin-bottom: 15px;
 }
+
+.softInstallListWrapper{
+	width: 100%;
+	overflow-x: scroll;
+}
+
+.billingTable{
+	min-width: 1900px;
+}
+
+
+#installDetailsModal .form-control:disabled, .form-control[readonly]{
+	background-color: #e9ecef59;
+}
+
+#installDetailsModal .input-group-text{
+	font-size: 12px;
+}

@@ -28,7 +28,6 @@
 	        					<div class="add_soft_form_inner py-4" style="display: none;">
 	        						<form id="addSoftware">
 	                                    @csrf
-	                                    
 	                                    <div class="addsoftFrom_cont formInput_pdding">
 	                                    	<fieldset>
 	                                    		<legend>Business info</legend>
@@ -48,50 +47,48 @@
 	                                    		<legend>Product info</legend>
 		                                        <div class="row">
 		                                            <div class="col-6">
-		                                                <label for="service_type" class="form-label">Product type <span>*</span></label>
-		                                                <select class="form-control" id="service_type" name="service_type" required>
-		                                                    <option value="retail">Retail Shop Software</option>
-		                                                    <option value="showroom">Showroom Management Software</option>
-		                                                    <option value="dealership">Dealership Management Software</option>
-		                                                    <option value="wsms">School Management Software</option>
-		                                                    <option value="whms">Health Management Software</option>
-		                                                    <option value="webdesign">Dentaon</option>
-		                                                    <option value="webdesign">Website Design & Development</option>
+		                                                <label for="product_type" class="form-label">Product type <span>*</span></label>
+		                                                <select class="form-control" id="product_type" name="product_type" required>
+		                                                    <option value="Retail Shop Software">Retail Shop Software</option>
+		                                                    <option value="Showroom Management Software">Showroom Management Software</option>
+		                                                    <option value="Dealership Management Software">Dealership Management Software</option>
+		                                                    <option value="School Management Software">School Management Software</option>
+		                                                    <option value="Health Management Software">Health Management Software</option>
+		                                                    <option value="Dentaon">Dentaon</option>
+		                                                    <option value="Website Design & Development">Website Design & Development</option>
 		                                                </select>
 		                                            </div>
 		                                            <div class="col-6">
-		                                                <label for="app_install_id" class="form-label">App install id <span>*</span></label>
-		                                                <input type="text" class="form-control" name="app_install_id" id="app_install_id" required>
+		                                                <label for="product_install_id" class="form-label">product install id <span>*</span></label>
+		                                                <input type="text" class="form-control" name="product_install_id" id="product_install_id" required>
 		                                            </div>
 		                                            <div class="col-6">
-		                                                <label for="app_url" class="form-label">App Url <span>*</span></label>
-		                                                <input type="text" class="form-control" name="app_url" id="app_url" required>
+		                                                <label for="product_url" class="form-label">product Url <span>*</span></label>
+		                                                <input type="text" class="form-control" name="product_url" id="product_url" required>
 		                                            </div>
 		                                            <div class="col-6">
-		                                                <label for="app_username" class="form-label">App Username <span>*</span></label>
-		                                                <input type="text" class="form-control" name="app_username" id="app_username" required>
+		                                                <label for="product_username" class="form-label">product Username <span>*</span></label>
+		                                                <input type="text" class="form-control" name="product_username" id="product_username" required>
 		                                            </div>
 		                                            <div class="col-6">
-		                                                <label for="app_password" class="form-label">App Password <span>*</span></label>
-		                                                <input type="text" class="form-control" name="app_password" id="app_password" required>
+		                                                <label for="product_password" class="form-label">product Password <span>*</span></label>
+		                                                <input type="text" class="form-control" name="product_password" id="product_password" required>
 		                                            </div>
 		                                            <div class="col-6">
-		                                                <label for="app_install_date" class="form-label">App Install Date <span>*</span></label>
-		                                                <input type="date" class="form-control" name="app_install_date" id="app_install_date" required>
+		                                                <label for="product_install_date" class="form-label">product Install Date <span>*</span></label>
+		                                                <input type="date" class="form-control" name="product_install_date" id="product_install_date" required>
 		                                            </div>
 		                                            <div class="col-6">
-		                                                <label for="app_rafaral" class="form-label">Referral</label>
-		                                                <select class="form-control" id="app_rafaral" name="app_rafaral">
-		                                                	<option value="inhouseMarketting">In House Marketting</option>
-		                                                	<option value="agents">Agents</option>
+		                                                <label for="product_rafaral" class="form-label">Referral</label>
+		                                                <select class="form-control" id="product_rafaral" name="product_rafaral">
+		                                                	<option value="In House Marketting">In House Marketting</option>
+		                                                	<option value="Agents">Agents</option>
 		                                                </select>
 		                                            </div>
 		                                            <div class="col-6">
 		                                                <label for="rafared_agents" class="form-label">Agents</label>
 		                                                <select class="form-control" id="rafared_agents" name="rafared_agents">
-		                                                	<option value="agent1">Agent One</option>
-		                                                	<option value="agent1">Agent One</option>
-		                                                	<option value="agent1">Agent One</option>
+		                                                	
 		                                                </select>
 		                                            </div>
 		                                        </div>
@@ -128,8 +125,8 @@
                                                     </div>
                                                     
                                                     <div class="col-6">
-                                                        <label for="bill_starting_date" class="form-label">Billing Starting date</label>
-                                                        <input type="date" class="form-control" name="bill_starting_date" id="bill_starting_date">
+                                                        <label for="dh_bill_starting_date" class="form-label">Billing Starting date</label>
+                                                        <input type="date" class="form-control" name="dh_bill_starting_date" id="dh_bill_starting_date">
                                                     </div>
                                                 </div>
 	                                    	</fieldset>
@@ -141,12 +138,10 @@
                                                         <label for="soft_price" class="form-label">Software Price <span>*</span></label>
                                                         <input type="number" class="form-control" name="soft_price" id="soft_price" required>
                                                     </div>
-
 	                                    			<div class="col-6">
                                                         <label for="installation_charge" class="form-label">Installation Charge(One time) <span>*</span></label>
                                                         <input type="number" class="form-control" name="installation_charge" id="installation_charge" required>
                                                     </div>
-
 	                                    			<div class="col-6">
                                                         <label for="service_level_aggre" class="form-label">SLA <span>*</span></label>
                                                         <select class="form-select" name="service_level_aggre" id="service_level_aggre" required>
@@ -159,13 +154,18 @@
                                                     </div>
                                                     
                                                     <div class="col-6">
-                                                        <label for="bill_amount" class="form-label">SLA Amount</label>
-                                                        <input type="number" class="form-control" name="bill_amount" id="bill_amount">
+                                                        <label for="service_level_amount" class="form-label">SLA Amount</label>
+                                                        <input type="number" class="form-control" name="service_level_amount" id="service_level_amount">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="sla_bill_start_date" class="form-label">Billing Start date</label>
+                                                        <input type="date" class="form-control" name="sla_bill_start_date" id="sla_bill_start_date">
                                                     </div>
                                                 </div>
 	                                    	</fieldset>
 
 	                                    	<input type="hidden" name="client_id" value="{{$c_id}}" required>
+	                                    	{{-- <input type="hidden" id="" name="agent_id" value=""> --}}
 	                                    	<button type="submit" class="btn btn-info mt-2">Save Changes</button>
 		                                </div>
 		        					</form>
@@ -173,7 +173,6 @@
 	        				</div>
 
 	        				<div class="installedSoftList">
-	        					<button onclick="show_installed_soft(1)">Show</button>
 	        					<table class="table table-striped" id="softShowTable">
 	        						<thead>
 	        							<tr>
@@ -202,9 +201,22 @@
 @section('site-js')
 	
 	<script type="text/javascript">
+		window.addEventListener('DOMContentLoaded', (event) => {
+            getAllAgent()
+        });
+
+
 		document.getElementById('softadd').addEventListener('click', (event) => {
 			mytoggle()
-			
+		})
+		domSelect('#product_rafaral').addEventListener('change', (event) => {
+			var select = document.getElementById('product_rafaral');
+			var text = select.options[select.selectedIndex].text;
+			if(text == "In House Marketting"){
+				domSelect('#rafared_agents').innerHTML = "<option value='facebook'>Facebook</option>"
+			}else if(text == "Agents"){
+				getAllAgent();
+			}
 		})
 
 		function mytoggle(){
@@ -252,6 +264,24 @@
                     "</td><td>"+ softInsData[softData] + 
                     "</td><td>"+ softInsData[softData].service_level_amount + 
                     "</td></tr>"
+				}
+			})
+			.catch((e) => {
+				console.log(e);
+			})
+		}
+
+		// get agents
+
+		function getAllAgent(){
+			axios.get('/get-all-agents')
+			.then((res) => {
+				var data = res.data
+				var options = domSelect('#rafared_agents');
+				options.innerHTML = "";
+
+				for(var agent in data){
+					options.innerHTML += `<option  value='${data[agent].id}'>${data[agent].agent_name}</option>`
 				}
 			})
 			.catch((e) => {

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\AgentsController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BillingController;
+
 
 
 Route::get('/', function () {
@@ -41,4 +44,26 @@ Route::get('/getinstalledsoft/{id}', [ClientsController::class, "getInstlledSoft
 Route::get('/home/agents', [AgentsController::class, 'onshowAgentPage']);
 Route::post('/addagent', [AgentsController::class, 'onAgentAdd']);
 Route::get('/all-agents', [AgentsController::class, 'onAgentShow']);
+//show in soft ins page
+Route::get('/get-all-agents', [AgentsController::class, 'getAllAgents']);
 
+
+
+// all-install
+Route::get('/home/all-install', [HomeController::class, 'allInstallShow']);
+// Route::post('/get-soft-insdata', [HomeController::class, 'allSoftDataById']);
+
+
+
+
+
+
+
+//*******billings*******// 
+
+Route::get('/home/all-bill', [BillingController::class, 'allBills']);
+Route::get('/get-all-install-billing', [BillingController::class, 'getAllBilling']);
+
+
+//change-payment-status
+Route::post('/change-payment-status', [BillingController::class, 'onDHPayChange']);

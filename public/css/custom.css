@@ -1,23 +1,6 @@
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-
-
-
-
 /*Client single page css*/
 
-.formInput_pdding .row .col-6{
+.addsoftFrom_cont .row .col-6{
 	margin-bottom: 20px;
 }
 
@@ -26,7 +9,20 @@ nav ul.nav li {
     margin-bottom: 15px;
 }
 
-.addsoftFrom_cont .row label span{
-	color: red;
-	font-weight: 700;
+.softInstallListWrapper{
+	width: 100%;
+	overflow-x: scroll;
+}
+
+.billingTable{
+	min-width: 1900px;
+}
+
+
+#installDetailsModal .form-control:disabled, .form-control[readonly]{
+	background-color: #e9ecef59;
+}
+
+#installDetailsModal .input-group-text{
+	font-size: 12px;
 }

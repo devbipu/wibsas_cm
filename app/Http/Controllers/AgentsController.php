@@ -46,4 +46,14 @@ class AgentsController extends Controller
             return 0;
         }
     }
+
+    function getAllAgents(){
+        $allC = DB::table('agents')->get();
+        
+        if($allC){
+            return $allC;
+        }else{
+            return 0;
+        }
+    }
 }
