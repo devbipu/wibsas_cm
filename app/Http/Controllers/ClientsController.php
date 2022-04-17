@@ -43,15 +43,12 @@ class ClientsController extends Controller
     //on show cients
     public function onShowClients(){
         $allC = DB::table('clients')->get();
-
-        
         if($allC){
             return $allC;
         }else{
             return 0;
         }
     }
-
 
     //clients single page
     function onSinglePage(Request $req, $id){
@@ -79,12 +76,56 @@ class ClientsController extends Controller
         $domain_hosting_bill_type = $req->input('domain_hosting_bill_type'); 
         $domain_hosting_bill    = $req->input('domain_hosting_bill'); 
         $dh_bill_starting_date  = $req->input('dh_bill_starting_date'); 
+        $dh_payment_recived  = $req->input('dh_payment_recived'); 
+        
+        if ($domain_hosting_bill_type == "monthly") {
+            if($dh_payment_recived == 1){
+                $dh_next_bill_date = date('Y-m-d', strtotime('+1 month' . $dh_bill_starting_date));
+                $dh_bill_status = 1;
+            }else{
+                $dh_next_bill_date = date('Y-m-d');
+                $dh_bill_status = 0;
+            }
+        } elseif($domain_hosting_bill_type == 'yearly') {
+            if ($dh_payment_recived == 1) {
+                $dh_next_bill_date = date('Y-m-d', strtotime('+1 year' . $dh_bill_starting_date));
+                $dh_bill_status = 1;
+            } else {
+                $dh_next_bill_date = date('Y-m-d');
+                $dh_bill_status = 0;
+            }
+            
+        }
+        
         $soft_price             = $req->input('soft_price'); 
         $installation_charge    = $req->input('installation_charge'); 
         $service_level_aggre    = $req->input('service_level_aggre'); 
         $service_level_amount   = $req->input('service_level_amount');
         $sla_bill_start_date    = $req->input('sla_bill_start_date');
-        $client_id              = $req->input('client_id');
+        $sla_payment_recived    = $req->input('sla_payment_recived');
+
+
+        if ($service_level_aggre == "monthly") {
+            if($sla_payment_recived == 1){
+                $sla_next_bill_date  = date('Y-m-d', strtotime('+1 month ' . $sla_bill_start_date));
+                $sla_bill_status = 1;
+            }else{
+                $sla_next_bill_date = date('Y-m-d');
+                $sla_bill_status = 0;
+            }
+        } elseif($service_level_aggre == 'yearly') {
+            if ($sla_payment_recived == 1) {
+                $sla_next_bill_date  = date('Y-m-d', strtotime('+1 year ' . $sla_bill_start_date));
+                $sla_bill_status = 1;
+            } else {
+                $sla_next_bill_date = date('Y-m-d');
+                $sla_bill_status = 0;
+            }
+        }
+
+
+        $client_id  = $req->input('client_id');
+
 
         $dbRes = DB::table('soft_install_per_client')->insert([
             'business_name'        =>   $business_name,  
@@ -101,12 +142,16 @@ class ClientsController extends Controller
             'domain_by'            =>   $domain_by,  
             'domain_hosting_bill_type'  =>   $domain_hosting_bill_type,  
             'domain_hosting_bill'  =>   $domain_hosting_bill,  
-            'dh_bill_starting_date'=>   $dh_bill_starting_date,  
+            'dh_bill_status'       =>   $dh_bill_status,  
+            'dh_bill_starting_date'=>   $dh_bill_starting_date,
+            'dh_next_bill_date'    =>   $dh_next_bill_date,
             'soft_price'           =>   $soft_price,  
             'installation_charge'  =>   $installation_charge,  
             'service_level_aggre'  =>   $service_level_aggre,  
             'service_level_amount' =>   $service_level_amount,
             'sla_bill_start_date'  =>   $sla_bill_start_date,
+            'sla_next_bill_date'   =>   $sla_next_bill_date,
+            'sla_bill_status'      =>   $sla_bill_status,
             'client_id'            =>   $client_id, 
         ]);
 
@@ -117,9 +162,112 @@ class ClientsController extends Controller
         }
     }
 
+
+
+    //update registred product datas
+    function onProductUpdate(Request $req){
+        $product_id             = $req->input('product_id');
+        $business_name          = $req->input('business_name'); 
+        $business_address       = $req->input('business_address'); 
+        $product_type           = $req->input('product_type'); 
+        $product_install_id         = $req->input('product_install_id'); 
+        $product_url                = $req->input('product_url'); 
+        $product_username           = $req->input('product_username'); 
+        $product_password           = $req->input('product_password'); 
+        $product_install_date       = $req->input('product_install_date'); 
+        $product_rafaral            = $req->input('product_rafaral'); 
+        $rafared_agents         = $req->input('rafared_agents'); 
+        $hosted_by              = $req->input('hosted_by'); 
+        $domain_by              = $req->input('domain_by'); 
+        $domain_hosting_bill_type = $req->input('domain_hosting_bill_type'); 
+        $domain_hosting_bill    = $req->input('domain_hosting_bill'); 
+        $dh_bill_starting_date  = $req->input('dh_bill_starting_date'); 
+        $dh_payment_recived  = $req->input('dh_payment_recived'); 
+        
+        if ($domain_hosting_bill_type == "monthly") {
+            if($dh_payment_recived == 1){
+                $dh_next_bill_date = date('Y-m-d', strtotime('+1 month' . $dh_bill_starting_date));
+                $dh_bill_status = 1;
+            }else{
+                $dh_next_bill_date = date('Y-m-d');
+                $dh_bill_status = 0;
+            }
+        } elseif($domain_hosting_bill_type == 'yearly') {
+            if ($dh_payment_recived == 1) {
+                $dh_next_bill_date = date('Y-m-d', strtotime('+1 year' . $dh_bill_starting_date));
+                $dh_bill_status = 1;
+            } else {
+                $dh_next_bill_date = date('Y-m-d');
+                $dh_bill_status = 0;
+            }
+        }
+        
+        $soft_price             = $req->input('soft_price'); 
+        $installation_charge    = $req->input('installation_charge'); 
+        $service_level_aggre    = $req->input('service_level_aggre'); 
+        $service_level_amount   = $req->input('service_level_amount');
+        $sla_bill_start_date    = $req->input('sla_bill_start_date');
+        $sla_payment_recived    = $req->input('sla_payment_recived');
+
+
+        if ($service_level_aggre == "monthly") {
+            if($sla_payment_recived == 1){
+                $sla_next_bill_date  = date('Y-m-d', strtotime('+1 month ' . $sla_bill_start_date));
+                $sla_bill_status = 1;
+            }else{
+                $sla_next_bill_date = date('Y-m-d');
+                $sla_bill_status = 0;
+            }
+        } elseif($service_level_aggre == 'yearly') {
+            if ($sla_payment_recived == 1) {
+                $sla_next_bill_date  = date('Y-m-d', strtotime('+1 year ' . $sla_bill_start_date));
+                $sla_bill_status = 1;
+            } else {
+                $sla_next_bill_date = date('Y-m-d');
+                $sla_bill_status = 0;
+            }
+        }
+        $client_id  = $req->input('client_id');
+
+
+        $dbRes = DB::table('soft_install_per_client')->where('id', '=', $product_id)->update([
+            'business_name'        =>   $business_name,  
+            'business_address'     =>   $business_address,  
+            'product_type'         =>   $product_type,  
+            'product_install_id'   =>   $product_install_id,  
+            'product_url'          =>   $product_url,  
+            'product_username'     =>   $product_username,  
+            'product_password'     =>   $product_password,  
+            'product_install_date' =>   $product_install_date,  
+            'product_rafaral'      =>   $product_rafaral,  
+            'rafared_agents'       =>   $rafared_agents,  
+            'hosted_by'            =>   $hosted_by,  
+            'domain_by'            =>   $domain_by,  
+            'domain_hosting_bill_type'  =>   $domain_hosting_bill_type,  
+            'domain_hosting_bill'  =>   $domain_hosting_bill,  
+            'dh_bill_status'       =>   $dh_bill_status,  
+            'dh_bill_starting_date'=>   $dh_bill_starting_date,
+            'dh_next_bill_date'    =>   $dh_next_bill_date,
+            'soft_price'           =>   $soft_price,  
+            'installation_charge'  =>   $installation_charge,  
+            'service_level_aggre'  =>   $service_level_aggre,  
+            'service_level_amount' =>   $service_level_amount,
+            'sla_bill_start_date'  =>   $sla_bill_start_date,
+            'sla_next_bill_date'   =>   $sla_next_bill_date,
+            'sla_bill_status'      =>   $sla_bill_status,
+        ]);
+
+        if($dbRes){
+            return "Success";
+        }else{
+            return "Faild";
+        }
+    }
+
     // show installed apps
-    function getInstlledSoft($id){
-        $dbRes = DB::table('soft_install_per_client')->where('client_id' , '=', $id)->get();
+    function getInstlledSoft(Request $req){
+        $client_id = $req->input('client_id');
+        $dbRes = DB::table('soft_install_per_client')->where('client_id' , '=', $client_id)->get();
 
         if ($dbRes) {
             return $dbRes;
@@ -127,4 +275,21 @@ class ClientsController extends Controller
             return $dbRes;
         }
     }
+
+    //Get product info by client
+    function getproductByClientId($id){
+        $dbRes = DB::table('soft_install_per_client')
+        ->join('clients', 'soft_install_per_client.client_id', '=', 'clients.id')
+        ->select('soft_install_per_client.*', 'clients.client_name', 'clients.client_address', 'clients.contact_number')
+        ->where('soft_install_per_client.id', $id)
+        ->first();
+
+        if ($dbRes) {
+            return view('backend.product_install_details', ['datas' => $dbRes]);
+        } else {
+            return redirect(url()->previous());
+        }
+        
+    }
+   
 }

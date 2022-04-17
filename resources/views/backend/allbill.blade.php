@@ -124,16 +124,20 @@
 
 		window.onload = (event) => {
 		  getAddBilling();
+		  
+		  checkPayStatusPerMonth();
 		};
 
 		
+		// Payment status change 
+		function changePayStatus(payStatus, id, columnName, bill_date, bill_renew_type, next_bill_column_name, billFor){
+			console.log(payStatus, id, columnName, bill_date, bill_renew_type, next_bill_column_name, billFor);
 
-		function changePayStatus(payStatus, id, columnName){
 			var confirmation = confirm("Do you want to change the payment status?")
 			if(confirmation){
-				axios.post('/change-payment-status', {DHpayStatus: payStatus, softInsId: id, changeColumenName: columnName})
+				axios.post('/change-payment-status', {DHpayStatus: payStatus, softInsId: id, changeColumenName: columnName, currentBillingDate: bill_date, bill_renew_type: bill_renew_type, next_bill_column_name: next_bill_column_name, billFor: billFor})
 				.then( (res) => {
-					console.log('success')
+					console.log(res.data);
 					if(res.status == 200){
 						getAddBilling()
 					}
@@ -161,16 +165,16 @@
 						<td> ${billngInfo.domain_hosting_bill_type}</td>
 						<td> ${billngInfo.domain_hosting_bill}</td>
 						<td> ${billngInfo.dh_bill_starting_date}</td>
-						<td> 01/02/2022 </td>
-						<td>${billngInfo.dh_bill_status ? `<button  onclick="changePayStatus(0, ${billngInfo.id}, 'dh_bill_status')" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'dh_bill_status')" class="badge bg-danger">UnPaid</button>` }</td>
+						<td> ${billngInfo.dh_next_bill_date}</td>
+						<td>${billngInfo.dh_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'dh_bill_status', '${billngInfo.dh_bill_starting_date}', '${billngInfo.domain_hosting_bill_type}', 'dh_next_bill_date', 'dhBill')" class="badge bg-danger">UnPaid</button>` }</td>
 						<td>${billngInfo.soft_price}</td>
 						<td>${billngInfo.installation_charge}</td>
-						<td>${billngInfo.install_bill_status ? `<button  onclick="changePayStatus(0, ${billngInfo.id}, 'install_bill_status')" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'install_bill_status')" class="badge bg-danger">UnPaid</button>` }</td>
+						<td>${billngInfo.install_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'install_bill_status', 'none', 'none', 'none', 'installbill')" class="badge bg-danger">UnPaid</button>` }</td>
 						<td>${billngInfo.service_level_aggre}</td>
 						<td>${billngInfo.service_level_amount}</td>
-						<td>{{date('Y-m-d', strtotime('+1 month ' . 'billngInfo.sla_bill_start_date'))}}</td>
-						<td>${billngInfo.sla_bill_status ? `<button  onclick="changePayStatus(0, ${billngInfo.id}, 'sla_bill_status')" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'sla_bill_status')" class="badge bg-danger">UnPaid</button>` }</td>
+						<td>${billngInfo.sla_next_bill_date}</td>
 
+						<td>${billngInfo.sla_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'sla_bill_status', '${billngInfo.sla_next_bill_date}', '${billngInfo.service_level_aggre}', 'sla_next_bill_date', 'slaBill')" class="badge bg-danger">UnPaid</button>` }</td>
 					</tr>`
 
 				})
@@ -185,7 +189,15 @@
 			}
 		}
 
-
+		function checkPayStatusPerMonth(){
+			axios.get('/checkPayStatus')
+			.then((res) => {
+				console.log(res.status);
+			})
+			.catch( (e) => {
+				console.log(e)
+			} )
+		}
 
 	</script>
 @endsection

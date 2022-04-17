@@ -128,6 +128,13 @@
                                                         <label for="dh_bill_starting_date" class="form-label">Billing Starting date</label>
                                                         <input type="date" class="form-control" name="dh_bill_starting_date" id="dh_bill_starting_date">
                                                     </div>
+                                                    <div class="col-6">
+                                                        <label for="dh_payment_recived" class="form-label">Payment Received?</label>
+                                                        <div class="form-check form-switch">
+														  <input class="form-check-input" type="checkbox" role="switch" name="dh_payment_recived" id="dh_payment_recived" value="1">
+														  <label class="form-check-label" for="dh_payment_recived">Payment Recived for this mounth?</label>
+														</div>
+                                                    </div>
                                                 </div>
 	                                    	</fieldset>
 
@@ -145,8 +152,6 @@
 	                                    			<div class="col-6">
                                                         <label for="service_level_aggre" class="form-label">SLA <span>*</span></label>
                                                         <select class="form-select" name="service_level_aggre" id="service_level_aggre" required>
-                                                            <option value="daily">Daily</option>
-                                                            <option value="weekly">Weekly</option>
                                                             <option value="monthly">Monthly</option>
                                                             <option value="yearly">Yearly</option>
                                                             <option value="none">None</option>
@@ -160,6 +165,13 @@
                                                     <div class="col-6">
                                                         <label for="sla_bill_start_date" class="form-label">Billing Start date</label>
                                                         <input type="date" class="form-control" name="sla_bill_start_date" id="sla_bill_start_date">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label for="sla_payment_recived" class="form-label">Payment Received?</label>
+                                                        <div class="form-check form-switch">
+														  <input class="form-check-input" type="checkbox" role="switch" name="sla_payment_recived" id="sla_payment_recived" value="1">
+														  <label class="form-check-label" for="sla_payment_recived">Payment Recived for this mounth?</label>
+														</div>
                                                     </div>
                                                 </div>
 	                                    	</fieldset>
@@ -177,8 +189,8 @@
 	        						<thead>
 	        							<tr>
 	        								<th>Software name</th>
-	        								<th>Next billing date</th>
-	        								<th>Bill Amount</th>
+	        								<th>Next SLA Bill Date</th>
+	        								<th>SLA Current Bill status</th>
 	        							</tr>
 	        						</thead>
 	        						<tbody>
@@ -202,9 +214,10 @@
 	
 	<script type="text/javascript">
 		window.addEventListener('DOMContentLoaded', (event) => {
-            getAllAgent()
+            getAllAgent();
+            var client_id = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
+            show_installed_soft(client_id);
         });
-
 
 		document.getElementById('softadd').addEventListener('click', (event) => {
 			mytoggle()
@@ -231,7 +244,7 @@
 		  }
 		}
 
-
+		//Add product per client
 		var addSoftFormSubmit = domSelect('#addSoftware').addEventListener('submit', (e) => {
 			e.preventDefault();
 			//all form data as object
@@ -243,7 +256,7 @@
 			axios.post('/addsoftware', data)
 			.then((res) => {
 				console.log(res);
-				domSelect('#addSoftware').reset();
+				// domSelect('#addSoftware').reset();
 			})
 			.catch((e) => {
 				console.log(e);
@@ -251,19 +264,26 @@
 		})
 
 		function show_installed_soft(id){
-			axios.get('/getinstalledsoft/'+ id)
-			.then((res) => {
-				var softInsData = res.data;
-				var tableRows = domSelect('#softShowTable tbody');
-				tableRows.innerHTML = '';
+			var tableRows = domSelect('#softShowTable tbody');
 
-				for(var softData in softInsData){
-					console.log(softInsData[softData])
-					tableRows.innerHTML += 
-					"<tr><td>"+ softInsData[softData].business_name +
-                    "</td><td>"+ softInsData[softData] + 
-                    "</td><td>"+ softInsData[softData].service_level_amount + 
-                    "</td></tr>"
+			axios.post('/getinstalledsoft', {client_id: id})
+			.then((res) => {
+				console.log(res);
+				var products = res.data;
+				tableRows.innerHTML = '';
+				if(Object.keys(products).length != 0){
+					for(var product in products){
+						console.log(products[product])
+						tableRows.innerHTML += `<tr>
+							<td><a href="/home/product-perclient/${products[product].id}">${products[product].business_name}</a></td>
+							<td>${products[product].sla_next_bill_date}</td>
+							<td>
+								${products[product].sla_bill_status ? `<button class="badge bg-success" >Paid</button>` : `<button class="badge bg-danger">UnPaid</button>` }
+							</td>
+						</tr>`
+					}
+				}else{
+					tableRows.innerHTML = "<tr><td colspan='3'>No Product purchased by this user</td></tr>";
 				}
 			})
 			.catch((e) => {
@@ -271,8 +291,8 @@
 			})
 		}
 
-		// get agents
 
+		// get agents
 		function getAllAgent(){
 			axios.get('/get-all-agents')
 			.then((res) => {

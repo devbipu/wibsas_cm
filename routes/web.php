@@ -36,7 +36,9 @@ Route::post('/addsoftware', [ClientsController::class, 'onSoftAdd']);
 
 // get soft data by client id
 
-Route::get('/getinstalledsoft/{id}', [ClientsController::class, "getInstlledSoft"]);
+Route::post('/getinstalledsoft/', [ClientsController::class, "getInstlledSoft"]);
+
+Route::get('/home/product-perclient/{id}', [ClientsController::class, 'getproductByClientId']);
 
 
 
@@ -63,7 +65,14 @@ Route::get('/home/all-install', [HomeController::class, 'allInstallShow']);
 
 Route::get('/home/all-bill', [BillingController::class, 'allBills']);
 Route::get('/get-all-install-billing', [BillingController::class, 'getAllBilling']);
+Route::get('/home/billing-report', [BillingController::class, 'billReportShow']);
+Route::get('/home/dh-billing-report', [BillingController::class, 'dhBillReport']);
 
 
 //change-payment-status
 Route::post('/change-payment-status', [BillingController::class, 'onDHPayChange']);
+
+
+
+Route::get('/checkPayStatus', [BillingController::class, 'checkPayStatus']);
+Route::get('/checkQueryDatas/{id}', [BillingController::class, 'showQueryData']);
