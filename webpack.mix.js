@@ -16,3 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 
 mix.copy('resources/css/app.css', 'public/css/custom.css')
+mix.js('resources/js/custom.js', 'public/js/custom.js')

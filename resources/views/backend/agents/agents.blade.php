@@ -102,8 +102,7 @@
 
         var clientDatas = domSelect('#addAgentsForm').addEventListener('submit', (e)=>{
             e.preventDefault();
-
-
+            
             // const form = domSelect('#addAgentsForm');
             const data = Object.fromEntries(new FormData(domSelect('#addAgentsForm')).entries());
             
@@ -116,7 +115,10 @@
                 if(res.status == 200){
                     document.getElementById("addAgentsForm").reset();
                     modal.hide();
-                    showAllAgents()
+                    showAllAgents();
+                    showAllert('success');
+                }else{
+                    showAllert('faild');
                 }
             })
             .catch((error) => {

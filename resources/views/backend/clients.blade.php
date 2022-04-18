@@ -116,7 +116,10 @@
                 if(res.status == 200){
                     document.getElementById("addClientsForm").reset();
                     modal.hide();
-                    showAllClients()
+                    showAllClients();
+                    showAllert('success');
+                }else{
+                    showAllert('faild');
                 }
             })
             .catch((error) => {

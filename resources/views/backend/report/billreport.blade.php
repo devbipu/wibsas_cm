@@ -17,8 +17,8 @@
 	        					<th>Client Number</th>
 	        					<th>Business Name</th>
 	        					<th>Address</th>
-	        					<th>Bill pay Month</th>
-	        					<th>Bill pay date</th>
+	        					<th>Billing Month</th>
+	        					<th>Bill Recived Date</th>
 	        					<th>Bill Amount</th>
 	        				</tr>
 	        			</thead>

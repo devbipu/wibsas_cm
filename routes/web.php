@@ -13,26 +13,36 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
+
+Route::get('/register', function(){
+    return redirect('/login');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+
 //client adding route
-
-
-
 Route::get('home/clients', [ClientsController::class, 'clientsShow']);
 Route::post('/addclients', [ClientsController::class, 'onClintAdd']);
 
 
-//show clients
 
+//show clients
 Route::get('/all-clients', [ClientsController::class, 'onShowClients']);
 Route::get('/home/clients/{id}', [ClientsController::class, 'onSinglePage']);
 
+
 //add client soft data
 Route::post('/addsoftware', [ClientsController::class, 'onSoftAdd']);
+//update product data
+Route::post('/updateinstalledsoftdata', [ClientsController::class, 'onProductUpdate']);
+
+//Delete clients
+
+Route::post('/deleteproductbyclient', [ClientsController::class, 'onProductDelete']);
+
 
 // get soft data by client id
 
@@ -46,7 +56,7 @@ Route::get('/home/product-perclient/{id}', [ClientsController::class, 'getproduc
 Route::get('/home/agents', [AgentsController::class, 'onshowAgentPage']);
 Route::post('/addagent', [AgentsController::class, 'onAgentAdd']);
 Route::get('/all-agents', [AgentsController::class, 'onAgentShow']);
-//show in soft ins page
+//show in product install page
 Route::get('/get-all-agents', [AgentsController::class, 'getAllAgents']);
 
 

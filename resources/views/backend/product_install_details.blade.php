@@ -217,15 +217,20 @@
 		 domSelect('#update_products_per_clients').addEventListener('submit', (e) => {
 		 	e.preventDefault();
 		 	var form = domSelect('#update_products_per_clients');
-
 			const formdatas = Object.fromEntries(new FormData(form).entries());
 			axios.post('/updateinstalledsoftdata', formdatas)
 			.then( (res) => {
-				console.log(res);
+				if(res.status == 200){
+					showAllert('success');
+					form.reset();
+				}else{
+					showAllert('faild');
+				}
 			})
 			.catch( (e) => {
+				showAllert('faild');
 				console.log(e)
-			} )
+			})
 		 })
 			
 		
@@ -235,125 +240,6 @@
 		// 	try {
 	 //            const response = await axios.get('/get-all-install-billing');
 	 //            const billngsInfo = await response.data;
-  //           let allRows = '';
-
-		// 		billngsInfo.map(billngInfo => {
-		// 			allRows += `<tr>
-		// 				<td> ${billngInfo.id}</td>
-		// 				<td> ${billngInfo.client_name}</td>
-		// 				<td> ${billngInfo.business_name}</td>
-		// 				<td> ${billngInfo.product_type}</td>
-		// 				<td> ${billngInfo.hosted_by}</td>
-		// 				<td> ${billngInfo.domain_by}</td>
-		// 				<td> ${billngInfo.domain_hosting_bill_type}</td>
-		// 				<td> ${billngInfo.domain_hosting_bill}</td>
-		// 				<td> ${billngInfo.dh_bill_starting_date}</td>
-		// 				<td> ${billngInfo.dh_next_bill_date}</td>
-		// 				<td>${billngInfo.dh_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'dh_bill_status', '${billngInfo.dh_bill_starting_date}', '${billngInfo.domain_hosting_bill_type}', 'dh_next_bill_date', 'dhBill')" class="badge bg-danger">UnPaid</button>` }</td>
-		// 				<td>${billngInfo.soft_price}</td>
-		// 				<td>${billngInfo.installation_charge}</td>
-		// 				<td>${billngInfo.install_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'install_bill_status', 'none', 'none', 'none', 'installbill')" class="badge bg-danger">UnPaid</button>` }</td>
-		// 				<td>${billngInfo.service_level_aggre}</td>
-		// 				<td>${billngInfo.service_level_amount}</td>
-		// 				<td>${billngInfo.sla_next_bill_date}</td>
-
-		// 				<td>${billngInfo.sla_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'sla_bill_status', '${billngInfo.sla_next_bill_date}', '${billngInfo.service_level_aggre}', 'sla_next_bill_date', 'slaBill')" class="badge bg-danger">UnPaid</button>` }</td>
-		// 			</tr>`
-
-		// 		})
-
-		// 		let tableBody = document.getElementById('all_billing')
-		// 		tableBody.innerHTML = allRows
-		// 	}
-
-
-		// 	catch(error){
-		// 		console.log(error)
-		// 	}
-		// }
 	</script>
-	
-	{{-- <script type="text/javascript">
-		window.addEventListener('DOMContentLoaded', (event) => {
-            getAllAgent();
-            var client_id = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
-            show_installed_soft(client_id);
-        });
-
-		
-		function mytoggle(){
-		  var x = document.querySelector(".add_soft_form_inner");
-		  var softTable = document.querySelector(".installedSoftList")
-		  if (x.style.display === "none") {
-		    x.style.display = "block";
-		    softTable.style.display = 'none';
-		  } else {
-		    x.style.display = "none";
-		    softTable.style.display = 'block';
-		  }
-		}
-
-		//Add product per client
-		var addSoftFormSubmit = domSelect('#addSoftware').addEventListener('submit', (e) => {
-			e.preventDefault();
-			//all form data as object
-			const form = domSelect('#addSoftware');
-			const data = Object.fromEntries(new FormData(form).entries());
-
-			console.log(data);
-
-			axios.post('/addsoftware', data)
-			.then((res) => {
-				console.log(res);
-				// domSelect('#addSoftware').reset();
-			})
-			.catch((e) => {
-				console.log(e);
-			})
-		})
-
-		function show_installed_soft(id){
-			var tableRows = domSelect('#softShowTable tbody');
-
-			axios.post('/getinstalledsoft', {client_id: id})
-			.then((res) => {
-				console.log(res);
-				var products = res.data;
-				tableRows.innerHTML = '';
-				for(var product in products){
-					console.log(products[product])
-					tableRows.innerHTML += `<tr>
-						<td><a href="home/product-perclient/${products[product].id}">${products[product].business_name}</a></td>
-						<td>${products[product].sla_next_bill_date}</td>
-						<td>
-							${products[product].sla_bill_status ? `<button class="badge bg-success" >Paid</button>` : `<button class="badge bg-danger">UnPaid</button>` }
-						</td>
-					</tr>`
-				}
-			})
-			.catch((e) => {
-				console.log(e);
-			})
-		}
-
-
-		// get agents
-		function getAllAgent(){
-			axios.get('/get-all-agents')
-			.then((res) => {
-				var data = res.data
-				var options = domSelect('#rafared_agents');
-				options.innerHTML = "";
-
-				for(var agent in data){
-					options.innerHTML += `<option  value='${data[agent].id}'>${data[agent].agent_name}</option>`
-				}
-			})
-			.catch((e) => {
-				console.log(e);
-			})
-		}
-	</script> --}}
-
 @endsection
 

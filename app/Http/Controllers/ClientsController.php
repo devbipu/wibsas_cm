@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     // On client show
     public function clientsShow(){
@@ -42,7 +46,7 @@ class ClientsController extends Controller
 
     //on show cients
     public function onShowClients(){
-        $allC = DB::table('clients')->get();
+        $allC = DB::table('clients')->latest('id')->get();
         if($allC){
             return $allC;
         }else{
@@ -69,14 +73,14 @@ class ClientsController extends Controller
         $product_username           = $req->input('product_username'); 
         $product_password           = $req->input('product_password'); 
         $product_install_date       = $req->input('product_install_date'); 
-        $product_rafaral            = $req->input('product_rafaral'); 
         $rafared_agents         = $req->input('rafared_agents'); 
+        $agent_id               = $req->input('agent_id');
         $hosted_by              = $req->input('hosted_by'); 
         $domain_by              = $req->input('domain_by'); 
         $domain_hosting_bill_type = $req->input('domain_hosting_bill_type'); 
         $domain_hosting_bill    = $req->input('domain_hosting_bill'); 
         $dh_bill_starting_date  = $req->input('dh_bill_starting_date'); 
-        $dh_payment_recived  = $req->input('dh_payment_recived'); 
+        $dh_payment_recived     = $req->input('dh_payment_recived'); 
         
         if ($domain_hosting_bill_type == "monthly") {
             if($dh_payment_recived == 1){
@@ -94,7 +98,6 @@ class ClientsController extends Controller
                 $dh_next_bill_date = date('Y-m-d');
                 $dh_bill_status = 0;
             }
-            
         }
         
         $soft_price             = $req->input('soft_price'); 
@@ -121,6 +124,14 @@ class ClientsController extends Controller
                 $sla_next_bill_date = date('Y-m-d');
                 $sla_bill_status = 0;
             }
+        }else{
+            if ($sla_payment_recived == 1) {
+                $sla_next_bill_date  = null;
+                $sla_bill_status = 1;
+            } else {
+                $sla_next_bill_date = null;
+                $sla_bill_status = 0;
+            }
         }
 
 
@@ -136,8 +147,7 @@ class ClientsController extends Controller
             'product_username'     =>   $product_username,  
             'product_password'     =>   $product_password,  
             'product_install_date' =>   $product_install_date,  
-            'product_rafaral'      =>   $product_rafaral,  
-            'rafared_agents'       =>   $rafared_agents,  
+            'agent_id'             =>   $agent_id,
             'hosted_by'            =>   $hosted_by,  
             'domain_by'            =>   $domain_by,  
             'domain_hosting_bill_type'  =>   $domain_hosting_bill_type,  
@@ -177,6 +187,7 @@ class ClientsController extends Controller
         $product_install_date       = $req->input('product_install_date'); 
         $product_rafaral            = $req->input('product_rafaral'); 
         $rafared_agents         = $req->input('rafared_agents'); 
+        $agent_id         = $req->input('agent_id');
         $hosted_by              = $req->input('hosted_by'); 
         $domain_by              = $req->input('domain_by'); 
         $domain_hosting_bill_type = $req->input('domain_hosting_bill_type'); 
@@ -200,6 +211,14 @@ class ClientsController extends Controller
                 $dh_next_bill_date = date('Y-m-d');
                 $dh_bill_status = 0;
             }
+        }else{
+            if ($dh_payment_recived == 1) {
+                $dh_next_bill_date = null;
+                $dh_bill_status = 1;
+            } else {
+                $dh_next_bill_date = null;
+                $dh_bill_status = 0;
+            }
         }
         
         $soft_price             = $req->input('soft_price'); 
@@ -208,7 +227,6 @@ class ClientsController extends Controller
         $service_level_amount   = $req->input('service_level_amount');
         $sla_bill_start_date    = $req->input('sla_bill_start_date');
         $sla_payment_recived    = $req->input('sla_payment_recived');
-
 
         if ($service_level_aggre == "monthly") {
             if($sla_payment_recived == 1){
@@ -226,6 +244,14 @@ class ClientsController extends Controller
                 $sla_next_bill_date = date('Y-m-d');
                 $sla_bill_status = 0;
             }
+        }else{
+            if ($sla_payment_recived == 1) {
+                $sla_next_bill_date  = null;
+                $sla_bill_status = 1;
+            } else {
+                $sla_next_bill_date = null;
+                $sla_bill_status = 0;
+            }
         }
         $client_id  = $req->input('client_id');
 
@@ -241,6 +267,7 @@ class ClientsController extends Controller
             'product_install_date' =>   $product_install_date,  
             'product_rafaral'      =>   $product_rafaral,  
             'rafared_agents'       =>   $rafared_agents,  
+            'agent_id'             =>   $agent_id,  
             'hosted_by'            =>   $hosted_by,  
             'domain_by'            =>   $domain_by,  
             'domain_hosting_bill_type'  =>   $domain_hosting_bill_type,  
@@ -290,6 +317,20 @@ class ClientsController extends Controller
             return redirect(url()->previous());
         }
         
+    }
+
+
+    //Delete by id 
+
+    function onProductDelete(Request $req){
+        $id = $req->input('product_id');
+        $dbres = DB::table('soft_install_per_client')->where('id', '=', $id)->delete();
+
+        if($dbres){
+            return $dbres;
+        }else{
+            return $dbres;
+        }
     }
    
 }

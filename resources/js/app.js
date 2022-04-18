@@ -4,5 +4,5 @@ require('./bootstrap');
 // import { Input } from 'mdb-ui-kit'; // module
 
 
-require('./custom');
+// require('./custom');
 

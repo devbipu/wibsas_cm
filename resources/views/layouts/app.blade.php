@@ -74,6 +74,20 @@
                 </div>
             </div>
         </nav>
+
+        <div>
+            <div id="appAllertSuccess" style="display: none;" class="bg-success text-white" >
+                <div>
+                    <h5>Success</h5>
+                </div>
+            </div>
+            <div id="appAllertFaild" style="display: none;" class="bg-danger text-white ">
+                <div>
+                    <h5>Faild</h5>
+                </div>
+            </div>
+        </div>
+        
        
         <main>
             @yield('content')

@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class AgentsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // show agents
     function onshowAgentPage(){
         return view('backend.agents.agents');
@@ -38,7 +44,7 @@ class AgentsController extends Controller
     }
 
     function onAgentShow(){
-        $allC = DB::table('agents')->get();
+        $allC = DB::table('agents')->latest('id')->get();
 
         if($allC){
             return $allC;
@@ -48,7 +54,7 @@ class AgentsController extends Controller
     }
 
     function getAllAgents(){
-        $allC = DB::table('agents')->get();
+        $allC = DB::table('agents')->latest('id')->get();
         
         if($allC){
             return $allC;

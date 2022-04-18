@@ -1,3 +1,13 @@
+/*-----------------------
+    Name:  WorldSoftZone CRM;
+    Author:  WorldSoftZone;
+    Version: 1.0.0;
+-----------------------*/
+
+
+
+
+
 /*Client single page css*/
 
 .addsoftFrom_cont .row .col-6{
@@ -25,4 +35,25 @@ nav ul.nav li {
 
 #installDetailsModal .input-group-text{
 	font-size: 12px;
+}
+
+
+/*Data model*/
+div#appAllertSuccess {
+    position: fixed;
+    top: 0;
+    right: 20px;
+    padding: 5px 30px;
+    border-radius: 4px;
+    padding-top: 10px;
+    box-shadow: 0px 0px 10px #00000096;
+}
+div#appAllertFaild {
+    position: fixed;
+    top: 0;
+    right: 20px;
+    padding: 5px 30px;
+    border-radius: 4px;
+    padding-top: 10px;
+    box-shadow: 0px 0px 10px #00000096;
 }

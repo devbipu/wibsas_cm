@@ -8,10 +8,16 @@ use Illuminate\Http\Request;
 class BillingController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     function getAllBilling(){
         $dbres = DB::table('soft_install_per_client')
         ->join('clients', 'soft_install_per_client.client_id', '=', 'clients.id')
         ->select('soft_install_per_client.*', 'clients.client_name', 'clients.contact_name', 'clients.contact_number', 'clients.client_address')
+        ->orderBy('id', 'ASC')
         ->get();
         if ($dbres) {
             return $dbres;
@@ -82,11 +88,6 @@ class BillingController extends Controller
 
 
     // Insert data into Billing table
-
-    // function showQueryData($id){
-    //     $this->insertIntoBillTable($id);
-    // }
-
     function insertIntoBillTable($id, $currentBillingDate){
         $datas = DB::table('soft_install_per_client')
         ->join('clients', 'soft_install_per_client.client_id', 
@@ -112,7 +113,7 @@ class BillingController extends Controller
     }
 
 
-    //Insert into dh bill table
+    //Insert into DH bill table
     function insertIntoBillDhTable($id, $currentBillingDate){
         $datas = DB::table('soft_install_per_client')
         ->join('clients', 'soft_install_per_client.client_id', 
@@ -136,11 +137,6 @@ class BillingController extends Controller
             return $insetIntoBillingTable;
         }  
     }
-
-
-
-
-
 
 
 

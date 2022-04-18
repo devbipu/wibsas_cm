@@ -1,7 +1,7 @@
 
 <div id="sidebar" class="col-2 p-0">
     <div class="sidebarinner">
-        <h3>Dashboard</h3>
+        <h3><a href="{{url('/home')}}">Dashboard</a></h3>
         <nav class="nav flex-column">
             <nav class="nav flex-column">
                 <ul class="nav">

@@ -24,7 +24,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('backend.home');
+        $clients = DB::table('clients')->count();
+        $agents = DB::table('agents')->count();
+        $totalInstall = DB::table('soft_install_per_client')->count();
+        $total_sla_bill = DB::table('all_billing')->count();
+        $total_bill_sla_amount = DB::table('all_billing')->sum('bill_amount');
+        $total_DH_bill = DB::table('dh_bill_report')->count();
+        $total_DH_bill_amount = DB::table('dh_bill_report')->sum('bill_amount');
+        
+        
+
+        return view('backend.home',[
+            'total_client' => $clients,
+            'total_agent'  => $agents,
+            'total_product'=> $totalInstall,
+            'total_bill_sla_amount' => $total_bill_sla_amount,
+            'total_sla_bill'    => $total_sla_bill,
+            'total_DH_bill' => $total_DH_bill,
+            'total_DH_bill_amount' => $total_DH_bill_amount
+        ]);
     }
 
 
@@ -34,6 +52,7 @@ class HomeController extends Controller
         ->join('clients', 'soft_install_per_client.client_id', '=', 'clients.id')
         ->leftJoin('agents', 'soft_install_per_client.agent_id', '=','agents.id')
         ->select('soft_install_per_client.*', 'clients.client_name', 'clients.contact_name', 'clients.contact_number', 'clients.client_address', 'agents.agent_name', 'agents.agent_number')
+        ->orderBy('id', 'ASC')
         ->get();
 
         if ($allInstall) {
@@ -45,27 +64,10 @@ class HomeController extends Controller
         }
     }
 
-    // get all soft install data by id
-    // function allSoftDataById(Request $req){
-    //     $install_soft_id = $req->input('softinstallID');
+    //dashboard counter
 
-    //     // $dbdata = DB::table('soft_install_per_client')->where('id', '=', $install_soft_id)->get()->first(); 
-
-    //     $dbdata = DB::table('soft_install_per_client')
-    //     ->join('clients', 'soft_install_per_client.client_id' , '=', 'clients.id')
-    //     ->select('soft_install_per_client.*', 'clients.client_name', 'clients.contact_number', 'clients.alter_contact', 'clients.contact_name')
-    //     ->where('soft_install_per_client.id', '=', $install_soft_id)
-    //     ->first();
-
-
-
-    //     if ($dbdata) {
-    //         return $dbdata;
-    //     } else {
-    //         return 0;
-    //     }  
+    // function dashboardcounts(){
+        
     // }
-
-
     
 }

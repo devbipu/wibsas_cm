@@ -52,46 +52,6 @@
 	        		</div>
 	        	</div>
 
-
-
-	        	{{-- Show all soft by grid system --}}
-
-	        	{{-- <div class="col-md-12 mb-5 d-none">
-	        		<div class="row">
-        				@foreach($all_install as $install)
-        					<div class="col-md-3">
-	        					<div class="card">
-								  <div class="card-body">
-								    <h5 class="card-title">{{$install->business_name}}</h5>
-								    <h6 class="card-subtitle mb-2 text-muted">{{$install->product_type}}</h6>
-								    <p class="card-text">{{$install->business_address}}</p>
-								    <a href="#" onclick="showInstallModal({{$install->id}})" class="card-link">See Details</a>
-								  </div>
-								</div>
-	        				</div>
-        				@endforeach
-	        		</div>
-	        	</div> --}}
-
-				{{-- 
-				<!-- Modal -->
-				<div class="modal fade" id="installDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				  <div class="modal-dialog modal-xl">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body" id="showSoftInsDetailsBody">
-				        
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-				  </div>
-				</div> --}}
-	        	
 	        </div>
 	        {{-- Content warpper end --}}
 	    </div>

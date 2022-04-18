@@ -137,9 +137,11 @@
 			if(confirmation){
 				axios.post('/change-payment-status', {DHpayStatus: payStatus, softInsId: id, changeColumenName: columnName, currentBillingDate: bill_date, bill_renew_type: bill_renew_type, next_bill_column_name: next_bill_column_name, billFor: billFor})
 				.then( (res) => {
-					console.log(res.data);
 					if(res.status == 200){
-						getAddBilling()
+						getAddBilling();
+						showAllert('success');
+					}else{
+						showAllert('faild');
 					}
 				})
 				.catch( (e) => {
@@ -150,9 +152,9 @@
 
 		async function getAddBilling(){
 			try {
-            const response = await axios.get('/get-all-install-billing');
-            const billngsInfo = await response.data;
-            let allRows = '';
+	            const response = await axios.get('/get-all-install-billing');
+	            const billngsInfo = await response.data;
+	            let allRows = '';
 
 				billngsInfo.map(billngInfo => {
 					allRows += `<tr>
@@ -176,7 +178,6 @@
 
 						<td>${billngInfo.sla_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'sla_bill_status', '${billngInfo.sla_next_bill_date}', '${billngInfo.service_level_aggre}', 'sla_next_bill_date', 'slaBill')" class="badge bg-danger">UnPaid</button>` }</td>
 					</tr>`
-
 				})
 
 				let tableBody = document.getElementById('all_billing')

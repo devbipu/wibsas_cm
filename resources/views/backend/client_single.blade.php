@@ -86,8 +86,8 @@
 		                                                </select>
 		                                            </div>
 		                                            <div class="col-6">
-		                                                <label for="rafared_agents" class="form-label">Agents</label>
-		                                                <select class="form-control" id="rafared_agents" name="rafared_agents">
+		                                                <label for="agent_id" class="form-label">Agents</label>
+		                                                <select class="form-control" id="agent_id" name="agent_id">
 		                                                	
 		                                                </select>
 		                                            </div>
@@ -191,6 +191,7 @@
 	        								<th>Software name</th>
 	        								<th>Next SLA Bill Date</th>
 	        								<th>SLA Current Bill status</th>
+	        								<th>Delete</th>
 	        							</tr>
 	        						</thead>
 	        						<tbody>
@@ -226,7 +227,7 @@
 			var select = document.getElementById('product_rafaral');
 			var text = select.options[select.selectedIndex].text;
 			if(text == "In House Marketting"){
-				domSelect('#rafared_agents').innerHTML = "<option value='facebook'>Facebook</option>"
+				domSelect('#agent_id').innerHTML = "<option value='facebook'>Facebook</option>"
 			}else if(text == "Agents"){
 				getAllAgent();
 			}
@@ -251,14 +252,17 @@
 			const form = domSelect('#addSoftware');
 			const data = Object.fromEntries(new FormData(form).entries());
 
-			console.log(data);
-
 			axios.post('/addsoftware', data)
 			.then((res) => {
-				console.log(res);
-				// domSelect('#addSoftware').reset();
+				if(res.status == 200){
+					showAllert('success');
+					form.reset();
+				}else{
+					showAllert('faild');
+				}
 			})
 			.catch((e) => {
+				showAllert('faild');
 				console.log(e);
 			})
 		})
@@ -280,6 +284,7 @@
 							<td>
 								${products[product].sla_bill_status ? `<button class="badge bg-success" >Paid</button>` : `<button class="badge bg-danger">UnPaid</button>` }
 							</td>
+							<td><button class='text-danger' onclick="deleteProductByClient(${products[product].id}, ${products[product].client_id}, )">Delete</button></td>
 						</tr>`
 					}
 				}else{
@@ -297,7 +302,7 @@
 			axios.get('/get-all-agents')
 			.then((res) => {
 				var data = res.data
-				var options = domSelect('#rafared_agents');
+				var options = domSelect('#agent_id');
 				options.innerHTML = "";
 
 				for(var agent in data){
@@ -307,6 +312,23 @@
 			.catch((e) => {
 				console.log(e);
 			})
+		}
+
+
+		// Delete products per clients
+		function deleteProductByClient(id, client_id){
+			let confirms = confirm("Do you wnat to delete the product?");
+
+			if(confirms == true){
+				axios.post('/deleteproductbyclient', {product_id : id})
+				.then((res) => {
+					console.log('ok');
+					show_installed_soft(client_id)
+				})
+				.catch((e) => {
+					console.log('Faild')
+				})
+			}
 		}
 	</script>
 
