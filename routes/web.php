@@ -9,6 +9,7 @@ use App\Http\Controllers\BillingController;
 
 
 
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -40,14 +41,11 @@ Route::post('/addsoftware', [ClientsController::class, 'onSoftAdd']);
 Route::post('/updateinstalledsoftdata', [ClientsController::class, 'onProductUpdate']);
 
 //Delete clients
-
 Route::post('/deleteproductbyclient', [ClientsController::class, 'onProductDelete']);
 
 
 // get soft data by client id
-
 Route::post('/getinstalledsoft/', [ClientsController::class, "getInstlledSoft"]);
-
 Route::get('/home/product-perclient/{id}', [ClientsController::class, 'getproductByClientId']);
 
 
@@ -78,11 +76,12 @@ Route::get('/get-all-install-billing', [BillingController::class, 'getAllBilling
 Route::get('/home/billing-report', [BillingController::class, 'billReportShow']);
 Route::get('/home/dh-billing-report', [BillingController::class, 'dhBillReport']);
 
+//delete bill
+Route::post('/deletebills', [BillingController::class, 'deleteBill']);
+Route::post('/deletedhbills', [BillingController::class, 'deletedhbills']);
 
 //change-payment-status
 Route::post('/change-payment-status', [BillingController::class, 'onDHPayChange']);
-
-
 
 Route::get('/checkPayStatus', [BillingController::class, 'checkPayStatus']);
 Route::get('/checkQueryDatas/{id}', [BillingController::class, 'showQueryData']);

@@ -87,7 +87,7 @@ class ClientsController extends Controller
                 $dh_next_bill_date = date('Y-m-d', strtotime('+1 month' . $dh_bill_starting_date));
                 $dh_bill_status = 1;
             }else{
-                $dh_next_bill_date = date('Y-m-d');
+                $dh_next_bill_date = $dh_bill_starting_date;
                 $dh_bill_status = 0;
             }
         } elseif($domain_hosting_bill_type == 'yearly') {
@@ -95,7 +95,7 @@ class ClientsController extends Controller
                 $dh_next_bill_date = date('Y-m-d', strtotime('+1 year' . $dh_bill_starting_date));
                 $dh_bill_status = 1;
             } else {
-                $dh_next_bill_date = date('Y-m-d');
+                $dh_next_bill_date = $dh_bill_starting_date;
                 $dh_bill_status = 0;
             }
         }
@@ -113,7 +113,7 @@ class ClientsController extends Controller
                 $sla_next_bill_date  = date('Y-m-d', strtotime('+1 month ' . $sla_bill_start_date));
                 $sla_bill_status = 1;
             }else{
-                $sla_next_bill_date = date('Y-m-d');
+                $sla_next_bill_date = $sla_bill_start_date;
                 $sla_bill_status = 0;
             }
         } elseif($service_level_aggre == 'yearly') {
@@ -121,7 +121,7 @@ class ClientsController extends Controller
                 $sla_next_bill_date  = date('Y-m-d', strtotime('+1 year ' . $sla_bill_start_date));
                 $sla_bill_status = 1;
             } else {
-                $sla_next_bill_date = date('Y-m-d');
+                $sla_next_bill_date = $sla_bill_start_date;
                 $sla_bill_status = 0;
             }
         }else{
@@ -200,7 +200,7 @@ class ClientsController extends Controller
                 $dh_next_bill_date = date('Y-m-d', strtotime('+1 month' . $dh_bill_starting_date));
                 $dh_bill_status = 1;
             }else{
-                $dh_next_bill_date = date('Y-m-d');
+                $dh_next_bill_date = $dh_bill_starting_date;
                 $dh_bill_status = 0;
             }
         } elseif($domain_hosting_bill_type == 'yearly') {
@@ -208,7 +208,7 @@ class ClientsController extends Controller
                 $dh_next_bill_date = date('Y-m-d', strtotime('+1 year' . $dh_bill_starting_date));
                 $dh_bill_status = 1;
             } else {
-                $dh_next_bill_date = date('Y-m-d');
+                $dh_next_bill_date = $dh_bill_starting_date;
                 $dh_bill_status = 0;
             }
         }else{
@@ -233,7 +233,7 @@ class ClientsController extends Controller
                 $sla_next_bill_date  = date('Y-m-d', strtotime('+1 month ' . $sla_bill_start_date));
                 $sla_bill_status = 1;
             }else{
-                $sla_next_bill_date = date('Y-m-d');
+                $sla_next_bill_date = $sla_bill_start_date;
                 $sla_bill_status = 0;
             }
         } elseif($service_level_aggre == 'yearly') {
@@ -241,7 +241,7 @@ class ClientsController extends Controller
                 $sla_next_bill_date  = date('Y-m-d', strtotime('+1 year ' . $sla_bill_start_date));
                 $sla_bill_status = 1;
             } else {
-                $sla_next_bill_date = date('Y-m-d');
+                $sla_next_bill_date = $sla_bill_start_date;
                 $sla_bill_status = 0;
             }
         }else{

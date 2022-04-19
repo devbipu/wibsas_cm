@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 	<div class="container-fluid">
 	    <div class="row">
 	        @include('layouts.sidebar')
@@ -97,25 +96,22 @@
 		        					<th>Domain Hosting Bill Starting Date</th>
 		        					<th>Next Domain Hosting Bill Date</th>
 		        					<th>Domain Hosting Bill Status</th>
-		        					<th>Software Price</th>
-		        					<th>Installation Charge</th>
-		        					<th>Installation Payment Status</th>
 		        					<th>SLA Type</th>
 		        					<th>SLA Amount</th>
 		        					<th>Next Billing date</th>
 		        					<th>SLA Billing Status</th>
+		        					<th>Software Price</th>
+		        					<th>Installation Charge</th>
+		        					<th>Installation Payment Status</th>
 		        				</tr>
 		        			</thead>
-		        			<tbody id="all_billing">
-		        				
-		        			</tbody>
+		        			<tbody id="all_billing"></tbody>
 	        			</table>
 	        		</div>
 	        	</div>
 	        </div>
 	    </div>
 	</div>
-
 @endsection
 
 
@@ -124,7 +120,6 @@
 
 		window.onload = (event) => {
 		  getAddBilling();
-		  
 		  checkPayStatusPerMonth();
 		};
 
@@ -168,15 +163,14 @@
 						<td> ${billngInfo.domain_hosting_bill}</td>
 						<td> ${billngInfo.dh_bill_starting_date}</td>
 						<td> ${billngInfo.dh_next_bill_date}</td>
-						<td>${billngInfo.dh_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'dh_bill_status', '${billngInfo.dh_bill_starting_date}', '${billngInfo.domain_hosting_bill_type}', 'dh_next_bill_date', 'dhBill')" class="badge bg-danger">UnPaid</button>` }</td>
-						<td>${billngInfo.soft_price}</td>
-						<td>${billngInfo.installation_charge}</td>
-						<td>${billngInfo.install_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'install_bill_status', 'none', 'none', 'none', 'installbill')" class="badge bg-danger">UnPaid</button>` }</td>
-						<td>${billngInfo.service_level_aggre}</td>
-						<td>${billngInfo.service_level_amount}</td>
-						<td>${billngInfo.sla_next_bill_date}</td>
-
-						<td>${billngInfo.sla_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'sla_bill_status', '${billngInfo.sla_next_bill_date}', '${billngInfo.service_level_aggre}', 'sla_next_bill_date', 'slaBill')" class="badge bg-danger">UnPaid</button>` }</td>
+						<td> ${billngInfo.dh_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'dh_bill_status', '${billngInfo.dh_bill_starting_date}', '${billngInfo.domain_hosting_bill_type}', 'dh_next_bill_date', 'dhBill')" class="badge bg-danger">UnPaid</button>` }</td>
+						<td> ${billngInfo.service_level_aggre}</td>
+						<td> ${billngInfo.service_level_amount}</td>
+						<td> ${billngInfo.sla_next_bill_date}</td>
+						<td> ${billngInfo.sla_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'sla_bill_status', '${billngInfo.sla_next_bill_date}', '${billngInfo.service_level_aggre}', 'sla_next_bill_date', 'slaBill')" class="badge bg-danger">UnPaid</button>` }</td>
+						<td> ${billngInfo.soft_price}</td>
+						<td> ${billngInfo.installation_charge}</td>
+						<td> ${billngInfo.install_bill_status ? `<button  onclick="" class="badge bg-success" >Paid</button>` : `<button onclick="changePayStatus(1, ${billngInfo.id}, 'install_bill_status', 'none', 'none', 'none', 'installbill')" class="badge bg-danger">UnPaid</button>` }</td>
 					</tr>`
 				})
 

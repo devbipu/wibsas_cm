@@ -136,15 +136,16 @@
                 var allClients = res.data;
                 var tableRows = domSelect('#clientsTable tbody');
                 tableRows.innerHTML = "";
+                var count = 1;
                 for(var client in allClients){
-                    console.log(allClients[client])
                     tableRows.innerHTML += "<tr><td>"+
-                    client +
+                    count +
                     "</td> <td> <a href ='clients/"+ allClients[client].id +" ' >"+ allClients[client].client_name +
                     "</td><td>"+ allClients[client].contact_name + 
                     "</td><td>"+ allClients[client].contact_number + 
                     "</td><td>"+ allClients[client].client_address + 
                     "</td></tr>"
+                    count ++;
                 }
             })
             .catch((e) => {

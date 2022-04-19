@@ -6,8 +6,8 @@
 	    <div class="row">
 	        @include('layouts.sidebar')
 	        <div class="col-10 pt-5 ">
-	        	<div class="col-md-10">
-	        		<h2>All bill report</h2>
+	        	<div class="col-md-12">
+	        		<h2>SLA Bill Report</h2>
 
 	        		<table class="table table-striped">
 	        			<thead>
@@ -20,6 +20,7 @@
 	        					<th>Billing Month</th>
 	        					<th>Bill Recived Date</th>
 	        					<th>Bill Amount</th>
+	        					<th>Action</th>
 	        				</tr>
 	        			</thead>
 	        			<tbody>
@@ -33,13 +34,41 @@
 	        						<td>{{$bill->bill_gen_date ?? "Current"}}</td>
 	        						<td>{{$bill->bill_pay_date}}</td>
 	        						<td>{{$bill->bill_amount}}</td>
+	        						<td><button class="btn btn-outline-danger" onclick="deleteBill({{$bill->id}})">Delete</button></td>
 	        					</tr>
 	        				@endforeach
 	        			</tbody>
+	        			<tfoot>
+	        				
+	        			</tfoot>
 	        		</table>
+	        		<div class="d-flex justify-content-center">
+	        			{!! $allBilling->links() !!}
+			        </div>
 	        	</div>
 	        </div>
 	    </div>
 	</div>
 
+@endsection
+
+
+@section('site-js')
+	<script>
+		function deleteBill(id){
+			const confirms = confirm("Do you want to delete this bill?");
+
+			if(confirms){
+				axios.post('/deletebills', {bill_id: id})
+				.then((res) => {
+					if(res.status = 200){
+						window.location.reload();
+					}
+				})
+				.catch((e) => {
+					console.log(e);
+				})
+			} 
+		}
+	</script>
 @endsection

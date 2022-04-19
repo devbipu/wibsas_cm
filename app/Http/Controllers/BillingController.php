@@ -139,8 +139,6 @@ class BillingController extends Controller
     }
 
 
-
-
     // Check payment status and set unpaid if date over
     function checkPayStatus(){
         $nextPayDate = DB::table('soft_install_per_client')->get(['sla_next_bill_date'])->toArray();
@@ -170,15 +168,13 @@ class BillingController extends Controller
     }
 
 
-
-
-    //billing report show
+    //SLA billing report show
     function billReportShow(){
         $dbres = DB::table('all_billing')
         ->join('soft_install_per_client', 'all_billing.software_install_id', '=', 'soft_install_per_client.id')
         ->join('clients', 'all_billing.client_id', '=', 'clients.id')
         ->select('all_billing.*', 'clients.client_name', 'clients.contact_number', 'clients.client_address', 'soft_install_per_client.business_name')
-        ->get();
+        ->paginate(10);
 
 
         if($dbres){
@@ -188,19 +184,44 @@ class BillingController extends Controller
         }
     }
 
+
     //billing report show
     function dhBillReport(){
         $dbres = DB::table('dh_bill_report')
         ->join('soft_install_per_client', 'dh_bill_report.software_install_id', '=', 'soft_install_per_client.id')
         ->join('clients', 'dh_bill_report.client_id', '=', 'clients.id')
         ->select('dh_bill_report.*', 'clients.client_name', 'clients.contact_number', 'clients.client_address', 'soft_install_per_client.business_name')
-        ->get();
+        ->paginate(10);
 
 
         if($dbres){
             return view('backend.report.dh_billreport', ['dhBilles' => $dbres]);
         }else{
             return view('backend.report.dh_billreport');
+        }
+    }
+
+
+    //delete SLA bill
+    function deleteBill(Request $req){
+        $bill_id = $req->input('bill_id');
+
+        $dbres = DB::table('all_billing')->where('id', '=', $bill_id)->delete();
+        if ($dbres) {
+            return $dbres;
+        } else {
+            return 0;
+        }
+    }
+
+    //Delete DH bill
+    function deletedhbills(Request $req){
+        $bill = $req->input('bill_id');
+        $dbres = DB::table('dh_bill_report')->where('id', '=', $bill_id)->delete();
+        if ($dbres) {
+            return $dbres;
+        } else {
+            return 0;
         }
     }
 
